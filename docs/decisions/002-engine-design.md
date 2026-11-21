@@ -47,3 +47,6 @@ Also: missing field → UNKNOWN; non-matching applies_when → NOT_APPLICABLE; a
 Node test runner with tsx; `npm test` runs test/*.test.ts. Update test/contract.test.ts so it no longer expects the stub to throw.
 
 Note: (a) case 5 has no marks field in the MVP types, so the marks rule is dropped and the expected result rests on the age rule only; (b) case 3's BC rural income rule (lte 150000) is verified test data only, and a variant marked unverified expects CHECK_ONE_THING.
+
+## Verification log
+- 22 Nov 2026, 00:24 IST: verified manually; `npm test` 26/26 pass, `npm run build` passes.
