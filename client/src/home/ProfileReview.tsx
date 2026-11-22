@@ -25,6 +25,29 @@ const FIELDS: { key: FieldKey; label: string }[] = [
 
 const CATEGORY_OPTIONS: ProfileCategory[] = ["OC", "BC", "SC", "ST", "MINORITY", "EBC"];
 
+/** Display labels keyed by API value. The API values themselves are never changed. */
+const CATEGORY_LABELS: Record<string, string> = {
+  OC: t.categoryOC,
+  BC: t.categoryBC,
+  SC: t.categorySC,
+  ST: t.categoryST,
+  MINORITY: t.categoryMinority,
+  EBC: t.categoryEBC,
+};
+
+const AREA_LABELS: Record<string, string> = {
+  rural: t.areaRural,
+  urban: t.areaUrban,
+};
+
+const COURSE_LABELS: Record<string, string> = {
+  CLASS_9: t.courseClass9,
+  CLASS_10: t.courseClass10,
+  INTERMEDIATE: t.courseIntermediate,
+  UG: t.courseUg,
+  PG: t.coursePg,
+};
+
 const AREA_OPTIONS: { value: "rural" | "urban"; label: string }[] = [
   { value: "rural", label: t.areaRural },
   { value: "urban", label: t.areaUrban },
@@ -44,12 +67,16 @@ function isNumericField(key: FieldKey): boolean {
   return NUMERIC_FIELDS.includes(key);
 }
 
+/** Looks up a display label; falls back to the raw value when the key is unknown. */
+function labelFor(map: Record<string, string>, value: string): string {
+  return map[value] ?? value;
+}
+
 function displayValue(key: FieldKey, value: string | number): string {
   if (key === "annual_income") return `₹${Number(value).toLocaleString("en-IN")}`;
-  if (key === "area") return value === "rural" ? t.areaRural : t.areaUrban;
-  if (key === "course_level") {
-    return COURSE_OPTIONS.find((option) => option.value === value)?.label ?? String(value);
-  }
+  if (key === "category") return labelFor(CATEGORY_LABELS, String(value));
+  if (key === "area") return labelFor(AREA_LABELS, String(value));
+  if (key === "course_level") return labelFor(COURSE_LABELS, String(value));
   return String(value);
 }
 
@@ -123,7 +150,7 @@ export default function ProfileReview({
           <option value="">{t.noneOption}</option>
           {CATEGORY_OPTIONS.map((option) => (
             <option key={option} value={option}>
-              {option}
+              {labelFor(CATEGORY_LABELS, option)}
             </option>
           ))}
         </select>
@@ -135,7 +162,7 @@ export default function ProfileReview({
           <option value="">{t.noneOption}</option>
           {AREA_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {labelFor(AREA_LABELS, option.value)}
             </option>
           ))}
         </select>
@@ -147,7 +174,7 @@ export default function ProfileReview({
           <option value="">{t.noneOption}</option>
           {COURSE_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {labelFor(COURSE_LABELS, option.value)}
             </option>
           ))}
         </select>

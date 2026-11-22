@@ -3,6 +3,7 @@ import type {
   EvaluateResponse,
   ExtractRequest,
   ExtractResponse,
+  SchemeDetailResponse,
 } from "../../../shared/contracts";
 import type { ProfileAttributes } from "../../../shared/types";
 
@@ -32,4 +33,14 @@ export async function extract(text: string): Promise<ExtractResponse> {
 export async function evaluate(attributes: ProfileAttributes): Promise<EvaluateResponse> {
   const body: EvaluateRequest = { attributes };
   return postJson<EvaluateResponse>("/api/evaluate", body);
+}
+
+/** Loads one scheme's detail (rules, documents, steps) by scheme id. */
+export async function getScheme(id: string): Promise<SchemeDetailResponse> {
+  const path = `/api/schemes/${encodeURIComponent(id)}`;
+  const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`Request to ${path} failed with status ${response.status}`);
+  }
+  return (await response.json()) as SchemeDetailResponse;
 }

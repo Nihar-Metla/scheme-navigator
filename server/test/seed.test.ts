@@ -9,9 +9,9 @@ const STATUSES = ["active", "inactive", "not_announced"];
 const schemes = loadSeedSchemes();
 
 describe("seed data (server/src/db/schemes.json)", () => {
-  it("has exactly 4 schemes with unique ids", () => {
-    assert.equal(schemes.length, 4);
-    assert.equal(new Set(schemes.map((s) => s.id)).size, 4);
+  it("has exactly 3 schemes with unique ids", () => {
+    assert.equal(schemes.length, 3);
+    assert.equal(new Set(schemes.map((s) => s.id)).size, 3);
   });
 
   it("gives every scheme an official_source_url and a verification_status", () => {

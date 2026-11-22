@@ -6,10 +6,11 @@ import HomeScreen from "./home/HomeScreen";
 import ProfileReview from "./home/ProfileReview";
 import { evaluate } from "./home/api";
 import ResultsScreen from "./results/ResultsScreen";
+import SchemeDetail from "./scheme/SchemeDetail";
 import { en as t } from "./locales/en";
 import { theme } from "./theme/tokens";
 
-type Screen = "home" | "review" | "results";
+type Screen = "home" | "review" | "results" | "scheme";
 
 const PROFILE_KEY = "haq.profile";
 const CATEGORIES: string[] = ["OC", "BC", "SC", "ST", "MINORITY", "EBC"];
@@ -68,6 +69,7 @@ export default function App() {
   const [attributes, setAttributes] = useState<ProfileAttributes>(loadProfile);
   const [results, setResults] = useState<EvaluateResponse | null>(null);
   const [reviewError, setReviewError] = useState<string | undefined>(undefined);
+  const [selectedSchemeId, setSelectedSchemeId] = useState<string | null>(null);
 
   // Only attributes are persisted. Raw student text never reaches storage.
   function updateAttributes(next: ProfileAttributes) {
@@ -118,7 +120,18 @@ export default function App() {
         )}
 
         {screen === "results" && results !== null && (
-          <ResultsScreen response={results} onChangeDetails={() => setScreen("review")} />
+          <ResultsScreen
+            response={results}
+            onChangeDetails={() => setScreen("review")}
+            onViewDetails={(id) => {
+              setSelectedSchemeId(id);
+              setScreen("scheme");
+            }}
+          />
+        )}
+
+        {screen === "scheme" && selectedSchemeId !== null && (
+          <SchemeDetail schemeId={selectedSchemeId} onBack={() => setScreen("results")} />
         )}
       </div>
     </div>

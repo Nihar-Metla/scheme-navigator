@@ -7,6 +7,7 @@ import { theme } from "../theme/tokens";
 
 interface ResultCardProps {
   scheme: EvaluatedScheme;
+  onViewDetails?: (id: string) => void;
 }
 
 const BADGES: Record<VerificationStatus, { label: string; style: CSSProperties }> = {
@@ -52,7 +53,7 @@ const buttonStyle: CSSProperties = {
 };
 
 /** One scheme with its verification badge, official link and expandable rule explanations. */
-export default function ResultCard({ scheme }: ResultCardProps) {
+export default function ResultCard({ scheme, onViewDetails }: ResultCardProps) {
   const [open, setOpen] = useState(false);
   const badge = BADGES[scheme.verification_status];
   const panelId = `why-${scheme.id}`;
@@ -108,9 +109,15 @@ export default function ResultCard({ scheme }: ResultCardProps) {
         >
           {t.whyButton}
         </button>
-        <button type="button" disabled style={{ ...buttonStyle, opacity: 0.5, cursor: "default" }}>
-          {t.viewDetails}
-        </button>
+        {onViewDetails ? (
+          <button type="button" style={buttonStyle} onClick={() => onViewDetails(scheme.id)}>
+            {t.viewDetails}
+          </button>
+        ) : (
+          <button type="button" disabled style={{ ...buttonStyle, opacity: 0.5, cursor: "default" }}>
+            {t.viewDetails}
+          </button>
+        )}
       </div>
 
       {open && (

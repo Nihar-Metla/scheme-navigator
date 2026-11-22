@@ -7,6 +7,7 @@ import type { CSSProperties } from "react";
 interface ResultsScreenProps {
   response: EvaluateResponse;
   onChangeDetails: () => void;
+  onViewDetails?: (id: string) => void;
 }
 
 const SECTIONS: { key: keyof EvaluateResponse["groups"]; heading: string }[] = [
@@ -29,7 +30,7 @@ const secondaryButtonStyle: CSSProperties = {
 };
 
 /** Renders the evaluator's groups exactly as returned. No eligibility logic lives here. */
-export default function ResultsScreen({ response, onChangeDetails }: ResultsScreenProps) {
+export default function ResultsScreen({ response, onChangeDetails, onViewDetails }: ResultsScreenProps) {
   const total = SECTIONS.reduce((sum, section) => sum + response.groups[section.key].length, 0);
 
   return (
@@ -48,7 +49,7 @@ export default function ResultsScreen({ response, onChangeDetails }: ResultsScre
             <ul style={{ margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {schemes.map((scheme) => (
                 <li key={scheme.id} style={{ listStyle: "none" }}>
-                  <ResultCard scheme={scheme} />
+                  <ResultCard scheme={scheme} onViewDetails={onViewDetails} />
                 </li>
               ))}
             </ul>
