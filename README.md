@@ -5,7 +5,15 @@
 **Live app:** https://scheme-navigator-lipe.onrender.com
 *(Free hosting: the first load after a quiet period can take 30–60 seconds.)*
 
-**Demo video:** [add link]
+## Screenshots
+
+| Describe your situation | Check your details | Results |
+|---|---|---|
+| ![Home screen with text box and examples](docs/screenshots/01-home.png) | ![Extracted details shown as editable chips](docs/screenshots/02-profile.png) | ![Results grouped as Likely eligible and Not eligible](docs/screenshots/03-results.png) |
+
+| Why? (rule by rule) | When a rule isn't met | Documents and steps | Tracker and reminders |
+|---|---|---|---|
+| ![Rule-by-rule explanation](docs/screenshots/04-why.png) | ![Income above the limit shows Not eligible](docs/screenshots/05-not-eligible.png) | ![Document checklist and application steps](docs/screenshots/06-scheme-detail.png) | ![Tracked application with deadline reminder](docs/screenshots/07-tracker.png) |
 
 Many students from low-income families in Telangana never claim the government scholarships they qualify for. Information is spread across portals, eligibility rules are hard to read, and students often pay agents for help that should be free.
 
@@ -148,8 +156,3 @@ Production: `cd client && npm run build`, then `cd server && npm start` serves t
 - **Rules are edited in `schemes.json`**; an admin screen is next.
 
 ---
-
-## Team
-
-- [Your name]: product, architecture, Codebenders/Nexen development, data verification
-- [Teammate name, if applicable]
