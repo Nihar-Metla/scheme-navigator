@@ -2,6 +2,10 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { once } from "node:events";
 import type { AddressInfo } from "node:net";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
 import { createApp } from "../src/api/app.js";
 import type { SchemeInput } from "../src/db/load.js";
 import { evaluate } from "../src/engine/evaluate.js";
@@ -339,6 +343,90 @@ describe("POST /api/evaluate", () => {
     });
   });
 });
+
+describe("static client serving", () => {
+  const INDEX_MARKER = "SPA_INDEX_MARKER";
+
+  async function withClientDist<T>(fn: (dir: string) => Promise<T>): Promise<T> {
+    const dir = await mkdtemp(join(tmpdir(), "client-dist-"));
+    try {
+      await mkdir(join(dir, "assets"), { recursive: true });
+      await writeFile(join(dir, "index.html"), `<!doctype html><html><body>${INDEX_MARKER}</body></html>`);
+      await writeFile(join(dir, "assets", "app.js"), "console.log('ASSET_MARKER');");
+      return await fn(dir);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  }
+
+  async function withClientApp<T>(clientDistPath: string, fn: (base: string) => Promise<T>): Promise<T> {
+    const server = createApp({ clientDistPath }).listen(0);
+    await once(server, "listening");
+    const { port } = server.address() as AddressInfo;
+    try {
+      return await fn(`http://127.0.0.1:${port}`);
+    } finally {
+      await new Promise<void>((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
+    }
+  }
+
+  it("keeps /api/health working", async () => {
+    await withClientDist(async (dir) => {
+      await withClientApp(dir, async (base) => {
+        const res = await fetch(`${base}/api/health`);
+        assert.equal(res.status, 200);
+        assert.deepEqual(await res.json(), { ok: true });
+      });
+    });
+  });
+
+  it("serves a static asset from the client build", async () => {
+    await withClientDist(async (dir) => {
+      await withClientApp(dir, async (base) => {
+        const res = await fetch(`${base}/assets/app.js`);
+        assert.equal(res.status, 200);
+        assert.ok((await res.text()).includes("ASSET_MARKER"));
+      });
+    });
+  });
+
+  it("falls back to index.html for non-API GET routes", async () => {
+    await withClientDist(async (dir) => {
+      await withClientApp(dir, async (base) => {
+        const res = await fetch(`${base}/results`);
+        assert.equal(res.status, 200);
+        assert.match(res.headers.get("content-type") ?? "", /text\/html/);
+        assert.ok((await res.text()).includes(INDEX_MARKER));
+      });
+    });
+  });
+
+  it("returns a JSON 404 for unknown /api paths, not the SPA HTML", async () => {
+    await withClientDist(async (dir) => {
+      await withClientApp(dir, async (base) => {
+        const res = await fetch(`${base}/api/does-not-exist`);
+        assert.equal(res.status, 404);
+        assert.match(res.headers.get("content-type") ?? "", /application\/json/);
+        assert.deepEqual(await res.json(), { error: "Not found" });
+      });
+    });
+  });
+
+  it("starts API-only when the client build is missing", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "client-dist-missing-"));
+    await rm(dir, { recursive: true, force: true });
+    await withClientApp(dir, async (base) => {
+      const health = await fetch(`${base}/api/health`);
+      assert.equal(health.status, 200);
+      assert.deepEqual(await health.json(), { ok: true });
+
+      const page = await fetch(`${base}/results`);
+      assert.equal(page.status, 404);
+      assert.equal((await page.text()).includes(INDEX_MARKER), false);
+    });
+  });
+});
+
 
 describe("POST /api/evaluate follow-up questions", () => {
   it("includes a missing field whose verified rule is UNKNOWN", async () => {
