@@ -7,10 +7,20 @@ import ProfileReview from "./home/ProfileReview";
 import { evaluate } from "./home/api";
 import ResultsScreen from "./results/ResultsScreen";
 import SchemeDetail from "./scheme/SchemeDetail";
+import ReminderBanner from "./tracker/ReminderBanner";
+import TrackerScreen from "./tracker/TrackerScreen";
+import {
+  loadApplications,
+  setDeadline,
+  setStatus,
+  trackScheme,
+  untrackScheme,
+} from "./tracker/storage";
+import type { TrackedApplication } from "./tracker/storage";
 import { en as t } from "./locales/en";
 import { theme } from "./theme/tokens";
 
-type Screen = "home" | "review" | "results" | "scheme";
+type Screen = "home" | "review" | "results" | "scheme" | "tracker";
 
 const PROFILE_KEY = "haq.profile";
 const CATEGORIES: string[] = ["OC", "BC", "SC", "ST", "MINORITY", "EBC"];
@@ -46,6 +56,21 @@ function loadProfile(): ProfileAttributes {
   }
 }
 
+/** Top navigation button. Active one gets a filled background. Tap target is at least theme.minTapTargetPx. */
+function navButtonStyle(active: boolean): CSSProperties {
+  return {
+    minHeight: theme.minTapTargetPx,
+    padding: "8px 12px",
+    fontSize: 15,
+    fontFamily: theme.font,
+    color: active ? theme.colors.background : theme.colors.accent,
+    background: active ? theme.colors.accent : theme.colors.background,
+    border: `2px solid ${theme.colors.accent}`,
+    borderRadius: 8,
+    cursor: "pointer",
+  };
+}
+
 const pageStyle: CSSProperties = {
   minHeight: "100vh",
   boxSizing: "border-box",
@@ -70,6 +95,8 @@ export default function App() {
   const [results, setResults] = useState<EvaluateResponse | null>(null);
   const [reviewError, setReviewError] = useState<string | undefined>(undefined);
   const [selectedSchemeId, setSelectedSchemeId] = useState<string | null>(null);
+  const [tracked, setTracked] = useState<TrackedApplication[]>(loadApplications);
+  const [bannerDismissed, setBannerDismissed] = useState<boolean>(false);
 
   // Only attributes are persisted. Raw student text never reaches storage.
   function updateAttributes(next: ProfileAttributes) {
@@ -102,10 +129,36 @@ export default function App() {
   return (
     <div style={pageStyle}>
       <div style={containerStyle}>
+        <nav style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          <button
+            type="button"
+            aria-current={screen !== "tracker" ? "page" : undefined}
+            style={navButtonStyle(screen !== "tracker")}
+            onClick={() => setScreen(results !== null ? "results" : "home")}
+          >
+            {t.navFindScholarships}
+          </button>
+          <button
+            type="button"
+            aria-current={screen === "tracker" ? "page" : undefined}
+            style={navButtonStyle(screen === "tracker")}
+            onClick={() => setScreen("tracker")}
+          >
+            {`${t.navMyApplications} (${tracked.length})`}
+          </button>
+        </nav>
+
         <header>
           <h1 style={{ margin: 0, fontSize: 26, color: theme.colors.accent }}>{t.appName}</h1>
           <p style={{ margin: "4px 0 0", fontSize: 15 }}>{t.tagline}</p>
         </header>
+
+        <ReminderBanner
+          applications={tracked}
+          dismissed={bannerDismissed}
+          onDismiss={() => setBannerDismissed(true)}
+          onOpen={() => setScreen("tracker")}
+        />
 
         {screen === "home" && <HomeScreen onExtracted={handleExtracted} />}
 
@@ -131,7 +184,22 @@ export default function App() {
         )}
 
         {screen === "scheme" && selectedSchemeId !== null && (
-          <SchemeDetail schemeId={selectedSchemeId} onBack={() => setScreen("results")} />
+          <SchemeDetail
+            schemeId={selectedSchemeId}
+            onBack={() => setScreen("results")}
+            onTrack={(id, name) => setTracked(trackScheme(id, name))}
+            onOpenTracker={() => setScreen("tracker")}
+            trackedStatus={tracked.find((a) => a.scheme_id === selectedSchemeId)?.status ?? null}
+          />
+        )}
+
+        {screen === "tracker" && (
+          <TrackerScreen
+            applications={tracked}
+            onStatusChange={(id, status) => setTracked(setStatus(id, status))}
+            onDeadlineChange={(id, value) => setTracked(setDeadline(id, value))}
+            onUntrack={(id) => setTracked(untrackScheme(id))}
+          />
         )}
       </div>
     </div>

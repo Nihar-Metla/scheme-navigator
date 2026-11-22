@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import type { SchemeDetailResponse } from "../../../shared/contracts";
-import type { VerificationStatus } from "../../../shared/types";
+import type { ApplicationStatus, VerificationStatus } from "../../../shared/types";
 import { getScheme } from "../home/api";
 import { en as t } from "../locales/en";
 import { theme } from "../theme/tokens";
+import { STATUS_LABELS } from "../tracker/TrackerScreen";
 import Checklist from "./Checklist";
 
 interface SchemeDetailProps {
   schemeId: string;
   onBack: () => void;
+  onTrack: (scheme_id: string, scheme_name: string) => void;
+  onOpenTracker: () => void;
+  trackedStatus: ApplicationStatus | null;
 }
 
 const BADGES: Record<VerificationStatus, { label: string; style: CSSProperties }> = {
@@ -51,7 +55,7 @@ function formatDate(iso: string): string {
 }
 
 /** Full detail for one scheme: badge, official link, deadline, documents checklist and apply steps. */
-export default function SchemeDetail({ schemeId, onBack }: SchemeDetailProps) {
+export default function SchemeDetail({ schemeId, onBack, onTrack, onOpenTracker, trackedStatus }: SchemeDetailProps) {
   const [detail, setDetail] = useState<SchemeDetailResponse | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
 
@@ -94,6 +98,25 @@ export default function SchemeDetail({ schemeId, onBack }: SchemeDetailProps) {
         <>
           <h2 style={{ margin: 0, fontSize: 22 }}>{detail.name}</h2>
           <p style={{ margin: 0, fontSize: 15 }}>{detail.provider}</p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+            {trackedStatus === null ? (
+              <button type="button" style={buttonStyle} onClick={() => onTrack(detail.id, detail.name)}>
+                {t.trackThis}
+              </button>
+            ) : (
+              <>
+                <p style={{ margin: 0 }}>
+                  <strong>{t.trackingStatus}: </strong>
+                  {STATUS_LABELS[trackedStatus]}
+                </p>
+                <button type="button" style={buttonStyle} onClick={onOpenTracker}>
+                  {t.trackingOpen}
+                </button>
+              </>
+            )}
+          </div>
+
           <p style={{ margin: 0 }}>{detail.benefit_summary}</p>
 
           <span

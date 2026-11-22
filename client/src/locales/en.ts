@@ -70,6 +70,28 @@ export const en = {
   noSteps: "No steps listed yet. Check the official portal.",
   schemeLoading: "Loading scheme details...",
   schemeError: "We could not load this scheme. Please try again.",
+
+  navFindScholarships: "Find scholarships",
+  navMyApplications: "My applications",
+  trackThis: "Track this scholarship",
+  trackingStatus: "Tracking",
+  trackingOpen: "My applications",
+  trackerHeading: "My applications",
+  trackerEmpty: "No scholarships tracked yet.",
+  stepSaved: "Saved",
+  stepDocsReady: "Docs ready",
+  stepApplied: "Applied",
+  stepVerified: "Verified",
+  stepSanctioned: "Sanctioned",
+  statusLabel: "Status",
+  myDeadline: "My deadline",
+  daysLeftSuffix: "days left",
+  dueToday: "due today",
+  overdue: "Overdue",
+  stopTracking: "Stop tracking",
+  reminderOverdue: "overdue",
+  bannerDismiss: "Dismiss",
+  bannerRegion: "Deadline reminders",
 };
 
 export type LocaleKeys = keyof typeof en;
