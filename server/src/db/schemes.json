@@ -1,0 +1,279 @@
+[
+  {
+    "id": "ts-pms-bc",
+    "name": "Telangana Post-Matric Scholarship (BC/EBC)",
+    "provider": "State",
+    "state": "Telangana",
+    "portal_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "benefit_summary": "Post-matric scholarship for eligible BC and EBC students studying from Class 11 to PG.",
+    "apply_start": null,
+    "deadline": null,
+    "deadline_note": "Not yet announced. Check the official portal.",
+    "last_verified_on": null,
+    "status": "not_announced",
+    "rules": [
+      {
+        "id": "ts-pms-bc-1",
+        "scheme_id": "ts-pms-bc",
+        "field": "category",
+        "operator": "in",
+        "value": ["BC", "EBC"],
+        "label": "Category is BC or EBC",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-pms-bc-2",
+        "scheme_id": "ts-pms-bc",
+        "field": "annual_income",
+        "operator": "lte",
+        "value": 150000,
+        "applies_when": { "field": "area", "operator": "eq", "value": "rural" },
+        "label": "Annual income up to ₹1,50,000 (rural)",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-pms-bc-3",
+        "scheme_id": "ts-pms-bc",
+        "field": "annual_income",
+        "operator": "lte",
+        "value": 200000,
+        "applies_when": { "field": "area", "operator": "eq", "value": "urban" },
+        "label": "Annual income up to ₹2,00,000 (urban)",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-pms-bc-4",
+        "scheme_id": "ts-pms-bc",
+        "field": "course_level",
+        "operator": "in",
+        "value": ["INTERMEDIATE", "UG", "PG"],
+        "label": "Course level is post-matric (Class 11 to PG)",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      }
+    ],
+    "documents": [
+      { "name": "Passport photo", "tip": "A recent colour photo that meets the portal's size rules." },
+      { "name": "Student Aadhaar card", "tip": "Uploaded on the official portal only. This app never asks for the Aadhaar number." },
+      { "name": "Bank passbook first page", "tip": "The front page showing your account number and IFSC code." },
+      { "name": "SSC hall ticket details", "tip": "Have your SSC hall ticket number and year ready." },
+      { "name": "Caste certificate (MeeSeva)", "tip": "Issued through MeeSeva. Keep the original for checking." },
+      { "name": "Income certificate (MeeSeva, dated after 1 April 2026)", "tip": "Must be dated after 1 April 2026." },
+      { "name": "College bonafide", "tip": "A certificate from your college for the current year." },
+      { "name": "Previous marks memos", "tip": "Marks memos for your previous class or year." }
+    ],
+    "steps": [
+      { "order": 1, "description": "Open the TS ePASS portal and register with your mobile number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 2, "description": "Fill the application form with your details exactly as they appear on your certificates.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 3, "description": "Upload the documents on the checklist, including your Aadhaar card on the portal.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 4, "description": "Check everything, then submit the application and note the application number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 5, "description": "Track the status on the portal and answer any query from your college or department.", "official_link": "https://telanganaepass.cgg.gov.in/" }
+    ]
+  },
+  {
+    "id": "ts-pms-sc",
+    "name": "Telangana Post-Matric Scholarship (SC)",
+    "provider": "State",
+    "state": "Telangana",
+    "portal_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "benefit_summary": "Post-matric scholarship for eligible SC students studying from Class 11 to PG.",
+    "apply_start": null,
+    "deadline": null,
+    "deadline_note": "Not yet announced. Check the official portal.",
+    "last_verified_on": null,
+    "status": "not_announced",
+    "rules": [
+      {
+        "id": "ts-pms-sc-1",
+        "scheme_id": "ts-pms-sc",
+        "field": "category",
+        "operator": "eq",
+        "value": "SC",
+        "label": "Category is SC",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-pms-sc-2",
+        "scheme_id": "ts-pms-sc",
+        "field": "annual_income",
+        "operator": "lte",
+        "value": null,
+        "label": "Annual income limit (conflicting sources)",
+        "verification_status": "conflicting",
+        "source_evidence": ["Conflict: official wording shows ₹2,00,000 in one place and ₹2,50,000 in another. Not verified."],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-pms-sc-3",
+        "scheme_id": "ts-pms-sc",
+        "field": "course_level",
+        "operator": "in",
+        "value": ["INTERMEDIATE", "UG", "PG"],
+        "label": "Course level is post-matric (Class 11 to PG)",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      }
+    ],
+    "documents": [
+      { "name": "Passport photo", "tip": "A recent colour photo that meets the portal's size rules." },
+      { "name": "Student Aadhaar card", "tip": "Uploaded on the official portal only. This app never asks for the Aadhaar number." },
+      { "name": "Bank passbook first page", "tip": "The front page showing your account number and IFSC code." },
+      { "name": "SSC hall ticket details", "tip": "Have your SSC hall ticket number and year ready." },
+      { "name": "Caste certificate (MeeSeva)", "tip": "Issued through MeeSeva. Keep the original for checking." },
+      { "name": "Income certificate (MeeSeva, dated after 1 April 2026)", "tip": "Must be dated after 1 April 2026." },
+      { "name": "College bonafide", "tip": "A certificate from your college for the current year." },
+      { "name": "Previous marks memos", "tip": "Marks memos for your previous class or year." }
+    ],
+    "steps": [
+      { "order": 1, "description": "Open the TS ePASS portal and register with your mobile number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 2, "description": "Fill the application form with your details exactly as they appear on your certificates.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 3, "description": "Upload the documents on the checklist, including your Aadhaar card on the portal.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 4, "description": "Check everything, then submit the application and note the application number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 5, "description": "Track the status on the portal and answer any query from your college or department.", "official_link": "https://telanganaepass.cgg.gov.in/" }
+    ]
+  },
+  {
+    "id": "ts-prematric-st",
+    "name": "Telangana Pre-Matric Scholarship (ST)",
+    "provider": "State",
+    "state": "Telangana",
+    "portal_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "benefit_summary": "Pre-matric scholarship for eligible ST students in Class 9 and Class 10.",
+    "apply_start": null,
+    "deadline": null,
+    "deadline_note": "Not yet announced. Check the official portal.",
+    "last_verified_on": null,
+    "status": "not_announced",
+    "rules": [
+      {
+        "id": "ts-prematric-st-1",
+        "scheme_id": "ts-prematric-st",
+        "field": "category",
+        "operator": "eq",
+        "value": "ST",
+        "label": "Category is ST",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-prematric-st-2",
+        "scheme_id": "ts-prematric-st",
+        "field": "course_level",
+        "operator": "in",
+        "value": ["CLASS_9", "CLASS_10"],
+        "label": "Course level is Class 9 or 10",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-prematric-st-3",
+        "scheme_id": "ts-prematric-st",
+        "field": "annual_income",
+        "operator": "lte",
+        "value": null,
+        "label": "Annual income limit (not yet confirmed)",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      }
+    ],
+    "documents": [
+      { "name": "Passport photo", "tip": "A recent colour photo that meets the portal's size rules." },
+      { "name": "Student Aadhaar card", "tip": "Uploaded on the official portal only. This app never asks for the Aadhaar number." },
+      { "name": "Bank passbook first page", "tip": "The front page showing your account number and IFSC code." },
+      { "name": "SSC hall ticket details", "tip": "Have your SSC hall ticket number and year ready." },
+      { "name": "Caste certificate (MeeSeva)", "tip": "Issued through MeeSeva. Keep the original for checking." },
+      { "name": "Income certificate (MeeSeva, dated after 1 April 2026)", "tip": "Must be dated after 1 April 2026." },
+      { "name": "College bonafide", "tip": "A certificate from your school for the current year." },
+      { "name": "Previous marks memos", "tip": "Marks memos for your previous class or year." }
+    ],
+    "steps": [
+      { "order": 1, "description": "Open the TS ePASS portal and register with your mobile number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 2, "description": "Fill the application form with your details exactly as they appear on your certificates.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 3, "description": "Upload the documents on the checklist, including your Aadhaar card on the portal.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 4, "description": "Check everything, then submit the application and note the application number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 5, "description": "Track the status on the portal and answer any query from your school or department.", "official_link": "https://telanganaepass.cgg.gov.in/" }
+    ]
+  },
+  {
+    "id": "ts-cm-overseas-minorities",
+    "name": "CM Overseas Scholarship for Minorities",
+    "provider": "State",
+    "state": "Telangana",
+    "portal_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "benefit_summary": "Overseas scholarship for eligible minority students taking PG study abroad.",
+    "apply_start": null,
+    "deadline": null,
+    "deadline_note": "Not yet announced. Check the official portal.",
+    "last_verified_on": null,
+    "status": "not_announced",
+    "rules": [
+      {
+        "id": "ts-cm-overseas-minorities-1",
+        "scheme_id": "ts-cm-overseas-minorities",
+        "field": "category",
+        "operator": "eq",
+        "value": "MINORITY",
+        "label": "Category is Minority",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-cm-overseas-minorities-2",
+        "scheme_id": "ts-cm-overseas-minorities",
+        "field": "age",
+        "operator": "lte",
+        "value": 30,
+        "label": "Age up to 30",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      },
+      {
+        "id": "ts-cm-overseas-minorities-3",
+        "scheme_id": "ts-cm-overseas-minorities",
+        "field": "course_level",
+        "operator": "eq",
+        "value": "PG",
+        "label": "Course is PG (abroad)",
+        "verification_status": "unverified",
+        "source_evidence": [],
+        "last_verified_on": null
+      }
+    ],
+    "documents": [
+      { "name": "Passport photo", "tip": "A recent colour photo that meets the portal's size rules." },
+      { "name": "Student Aadhaar card", "tip": "Uploaded on the official portal only. This app never asks for the Aadhaar number." },
+      { "name": "Bank passbook first page", "tip": "The front page showing your account number and IFSC code." },
+      { "name": "SSC hall ticket details", "tip": "Have your SSC hall ticket number and year ready." },
+      { "name": "Caste certificate (MeeSeva)", "tip": "Issued through MeeSeva. Keep the original for checking." },
+      { "name": "Income certificate (MeeSeva, dated after 1 April 2026)", "tip": "Must be dated after 1 April 2026." },
+      { "name": "College bonafide", "tip": "A certificate from your college for the current year." },
+      { "name": "Previous marks memos", "tip": "Marks memos for your previous class or year." }
+    ],
+    "steps": [
+      { "order": 1, "description": "Open the TS ePASS portal and register with your mobile number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 2, "description": "Fill the application form with your details exactly as they appear on your certificates.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 3, "description": "Upload the documents on the checklist, including your Aadhaar card on the portal.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 4, "description": "Check everything, then submit the application and note the application number.", "official_link": "https://telanganaepass.cgg.gov.in/" },
+      { "order": 5, "description": "Track the status on the portal and answer any query from your college or department.", "official_link": "https://telanganaepass.cgg.gov.in/" }
+    ]
+  }
+]
