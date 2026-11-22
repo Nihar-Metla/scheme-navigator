@@ -49,6 +49,8 @@ export const en = {
   badgeVerified: "Rules verified",
   badgeUnverified: "Rules not yet verified",
   badgeConflicting: "Sources disagree",
+  lastReviewed: "Last reviewed: {date}",
+  notYetReviewed: "Not yet reviewed",
   officialSource: "Official source",
   emptyResults: "No schemes to show yet. Try changing your details.",
   rulePass: "Met",

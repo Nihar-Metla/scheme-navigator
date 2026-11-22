@@ -39,6 +39,14 @@ function markFor(result: EvalResult): { symbol: string; meaning: string } | null
   }
 }
 
+/** Formats an ISO date (YYYY-MM-DD) as "22 Nov 2026". Built in UTC so the day never shifts with the local timezone. */
+function formatReviewDate(iso: string): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (Number.isNaN(date.getTime())) return iso;
+  return new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(date);
+}
+
 const buttonStyle: CSSProperties = {
   minHeight: theme.minTapTargetPx,
   minWidth: theme.minTapTargetPx,
@@ -84,6 +92,11 @@ export default function ResultCard({ scheme, onViewDetails }: ResultCardProps) {
       >
         {badge.label}
       </span>
+      <p style={{ margin: 0, fontSize: 14 }}>
+        {scheme.last_verified_on === null
+          ? t.notYetReviewed
+          : t.lastReviewed.replace("{date}", formatReviewDate(scheme.last_verified_on))}
+      </p>
 
       <a
         href={scheme.official_source_url}

@@ -54,6 +54,14 @@ function formatDate(iso: string): string {
   return date.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 }
 
+/** Formats an ISO date (YYYY-MM-DD) as "22 Nov 2026". Built in UTC so the day never shifts with the local timezone. */
+function formatReviewDate(iso: string): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (Number.isNaN(date.getTime())) return iso;
+  return new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(date);
+}
+
 /** Full detail for one scheme: badge, official link, deadline, documents checklist and apply steps. */
 export default function SchemeDetail({ schemeId, onBack, onTrack, onOpenTracker, trackedStatus }: SchemeDetailProps) {
   const [detail, setDetail] = useState<SchemeDetailResponse | null>(null);
@@ -130,6 +138,11 @@ export default function SchemeDetail({ schemeId, onBack, onTrack, onOpenTracker,
           >
             {BADGES[detail.verification_status].label}
           </span>
+          <p style={{ margin: 0, fontSize: 14 }}>
+            {detail.last_verified_on === null
+              ? t.notYetReviewed
+              : t.lastReviewed.replace("{date}", formatReviewDate(detail.last_verified_on))}
+          </p>
 
           <a
             href={detail.official_source_url}
