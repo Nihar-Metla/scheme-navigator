@@ -73,6 +73,13 @@ function appliesWhen(profile: ProfileAttributes, applies: unknown): boolean | nu
   return unknown ? null : true;
 }
 
+/** Formats an extracted profile attribute for display in an explanation. */
+function formatValue(value: unknown): string {
+  if (typeof value === "number") return value.toLocaleString("en-IN");
+  if (Array.isArray(value)) return value.map(formatValue).join(", ");
+  return String(value);
+}
+
 function evaluateRule(profile: ProfileAttributes, rule: Rule): RuleResult {
   const expected = `${rule.operator} ${JSON.stringify(rule.value) ?? "null"}`;
   const actual = profile[rule.field] ?? null;
@@ -98,11 +105,11 @@ function evaluateRule(profile: ProfileAttributes, rule: Rule): RuleResult {
 
   // 2. conflicting or unverified -> UNKNOWN
   if (rule.verification_status !== "verified") {
-    return {
-      ...base,
-      result: "UNKNOWN",
-      explanation: `${rule.label} is ${rule.verification_status}, so it cannot be checked yet.`,
-    };
+    const explanation =
+      rule.verification_status === "conflicting"
+        ? `Official sources disagree on this rule, so we can't check it yet: ${rule.label}.`
+        : `We haven't confirmed this rule from an official source yet: ${rule.label}.`;
+    return { ...base, result: "UNKNOWN", explanation };
   }
 
   // 3. profile value missing, or rule value null -> UNKNOWN
@@ -110,7 +117,7 @@ function evaluateRule(profile: ProfileAttributes, rule: Rule): RuleResult {
     return { ...base, result: "UNKNOWN", explanation: `The limit for ${rule.label} is not confirmed.` };
   }
   if (actual === null) {
-    return { ...base, result: "UNKNOWN", explanation: `We do not have the information needed to check ${rule.label}.` };
+    return { ...base, result: "UNKNOWN", explanation: `We need more details to check this: ${rule.label}.` };
   }
 
   // 4. evaluate the operator -> PASS or FAIL
@@ -123,8 +130,12 @@ function evaluateRule(profile: ProfileAttributes, rule: Rule): RuleResult {
     };
   }
   return outcome
-    ? { ...base, result: "PASS", explanation: `${rule.label} is met.` }
-    : { ...base, result: "FAIL", explanation: `${rule.label} is not met.` };
+    ? { ...base, result: "PASS", explanation: `This rule is met: ${rule.label}.` }
+    : {
+        ...base,
+        result: "FAIL",
+        explanation: `This rule isn't met: ${rule.label} (you entered ${formatValue(actual)}).`,
+      };
 }
 
 export const evaluate: EvaluateFn = (input: EngineInput): EngineOutput => {
