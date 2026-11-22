@@ -2,6 +2,7 @@ import express from "express";
 import { loadSeedSchemes, validateSchemes } from "../db/load.js";
 import type { Scheme, SchemeInput } from "../db/load.js";
 import { createEvaluateRouter } from "./routes/match.js";
+import { createExtractRouter } from "./routes/extract.js";
 import { createSchemesRouter } from "./routes/schemes.js";
 
 export interface CreateAppOptions {
@@ -32,6 +33,7 @@ export function createApp(options: CreateAppOptions = {}): express.Express {
   });
   app.use(createSchemesRouter(schemes));
   app.use(createEvaluateRouter(schemes));
+  app.use(createExtractRouter());
   app.use(jsonBodyErrorHandler);
   return app;
 }
