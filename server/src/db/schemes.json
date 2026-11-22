@@ -5,12 +5,12 @@
     "provider": "State",
     "state": "Telangana",
     "portal_url": "https://telanganaepass.cgg.gov.in/",
-    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/WhoareEligible.do",
     "benefit_summary": "Post-matric scholarship for eligible BC and EBC students studying from Class 11 to PG.",
     "apply_start": null,
     "deadline": null,
     "deadline_note": "Not yet announced. Check the official portal.",
-    "last_verified_on": null,
+    "last_verified_on": "2026-11-22",
     "status": "not_announced",
     "rules": [
       {
@@ -23,9 +23,12 @@
           "EBC"
         ],
         "label": "Category is BC or EBC",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — \"BC & EBC and Minority Welfare Students who belongs to rural area their family income should be Rs. One Lakh Fifty Thousand or below.\"",
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — Not eligible: \"Students belonging to the categories other than SC, ST, BC, EBC , Minority and DW(Disabled).\""
+        ],
+        "last_verified_on": "2026-11-22"
       },
       {
         "id": "ts-pms-bc-2",
@@ -39,9 +42,12 @@
           "value": "rural"
         },
         "label": "Annual income up to ₹1,50,000 (rural)",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — \"BC & EBC and Minority Welfare Students who belongs to rural area their family income should be Rs. One Lakh Fifty Thousand or below.\"",
+          "Note: G.O.Ms.No.9 (June 2026) revises 2026-27 guidelines; its text has not yet been reviewed against this page."
+        ],
+        "last_verified_on": "2026-11-22"
       },
       {
         "id": "ts-pms-bc-3",
@@ -55,9 +61,12 @@
           "value": "urban"
         },
         "label": "Annual income up to ₹2,00,000 (urban)",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — \"BC & EBC and Minority Welfare Students who are belongs to Urban area family income should be Rs. Two Lakhs or below.\"",
+          "Note: G.O.Ms.No.9 (June 2026) revises 2026-27 guidelines; its text has not yet been reviewed against this page."
+        ],
+        "last_verified_on": "2026-11-22"
       },
       {
         "id": "ts-pms-bc-4",
@@ -70,9 +79,12 @@
           "PG"
         ],
         "label": "Course level is post-matric (Class 11 to PG)",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/CoursesOffered.do — \"Post Matric Courses approved by the concerned University/Board having duration of 1 year and above\"",
+          "https://telanganaepass.cgg.gov.in/CoursesOffered.do — Group-IV: \"Intermediate\"; Group-III: \"Degree courses(not covered in group I & II)\"; Group-II: \"Other professional and technical graduate and PG including (M.Phil, PhD and post doctoral research) level courses not covered in Group-I.\""
+        ],
+        "last_verified_on": "2026-11-22"
       }
     ],
     "documents": [
@@ -143,12 +155,12 @@
     "provider": "State",
     "state": "Telangana",
     "portal_url": "https://telanganaepass.cgg.gov.in/",
-    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/WhoareEligible.do",
     "benefit_summary": "Post-matric scholarship for eligible SC students studying from Class 11 to PG.",
     "apply_start": null,
     "deadline": null,
     "deadline_note": "Not yet announced. Check the official portal.",
-    "last_verified_on": null,
+    "last_verified_on": "2026-11-22",
     "status": "not_announced",
     "rules": [
       {
@@ -158,22 +170,26 @@
         "operator": "eq",
         "value": "SC",
         "label": "Category is SC",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — \"SC Welfare Students whose annual Family income is Rs. Two Lakh Fifty Thousand or below.\"",
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — Not eligible: \"Students belonging to the categories other than SC, ST, BC, EBC , Minority and DW(Disabled).\""
+        ],
+        "last_verified_on": "2026-11-22"
       },
       {
         "id": "ts-pms-sc-2",
         "scheme_id": "ts-pms-sc",
         "field": "annual_income",
         "operator": "lte",
-        "value": null,
-        "label": "Annual income limit (conflicting sources)",
-        "verification_status": "conflicting",
+        "value": 250000,
+        "label": "Annual income up to ₹2,50,000",
+        "verification_status": "verified",
         "source_evidence": [
-          "Not verified. Reported SC limits differ (₹2,00,000 vs ₹2,50,000). G.O.Ms.No.9 (June 2026) revises 2026-27 limits; its text has not yet been reviewed."
+          "https://telanganaepass.cgg.gov.in/WhoareEligible.do — \"SC Welfare Students whose annual Family income is Rs. Two Lakh Fifty Thousand or below.\"",
+          "Note: G.O.Ms.No.9 (June 2026) revises 2026-27 guidelines; its text has not yet been reviewed against this page."
         ],
-        "last_verified_on": null
+        "last_verified_on": "2026-11-22"
       },
       {
         "id": "ts-pms-sc-3",
@@ -186,9 +202,12 @@
           "PG"
         ],
         "label": "Course level is post-matric (Class 11 to PG)",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/CoursesOffered.do — \"Post Matric Courses approved by the concerned University/Board having duration of 1 year and above\"",
+          "https://telanganaepass.cgg.gov.in/CoursesOffered.do — Group-IV: \"Intermediate\"; Group-III: \"Degree courses(not covered in group I & II)\"; Group-II: \"Other professional and technical graduate and PG including (M.Phil, PhD and post doctoral research) level courses not covered in Group-I.\""
+        ],
+        "last_verified_on": "2026-11-22"
       }
     ],
     "documents": [
@@ -259,12 +278,12 @@
     "provider": "State",
     "state": "Telangana",
     "portal_url": "https://telanganaepass.cgg.gov.in/",
-    "official_source_url": "https://telanganaepass.cgg.gov.in/",
+    "official_source_url": "https://telanganaepass.cgg.gov.in/OverseasLinks.do",
     "benefit_summary": "Overseas scholarship for eligible minority students taking PG study abroad.",
     "apply_start": null,
     "deadline": null,
     "deadline_note": "Not yet announced. Check the official portal.",
-    "last_verified_on": null,
+    "last_verified_on": "2026-11-22",
     "status": "not_announced",
     "rules": [
       {
@@ -274,9 +293,11 @@
         "operator": "eq",
         "value": "MINORITY",
         "label": "Category is Minority",
-        "verification_status": "unverified",
-        "source_evidence": [],
-        "last_verified_on": null
+        "verification_status": "verified",
+        "source_evidence": [
+          "https://telanganaepass.cgg.gov.in/OverseasLinks.do — Page heading: \"Overseas Scholarship Selection for SC, ST , BC and MINORITY Services\""
+        ],
+        "last_verified_on": "2026-11-22"
       },
       {
         "id": "ts-cm-overseas-minorities-2",

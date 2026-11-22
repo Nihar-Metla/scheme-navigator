@@ -45,12 +45,12 @@ describe("seed data (server/src/db/schemes.json)", () => {
     }
   });
 
-  it("marks the SC income rule as conflicting", () => {
+   it("marks the SC income rule as verified at ₹2,50,000 from the official page", () => {
     const sc = schemes.find((s) => s.id === "ts-pms-sc");
-    assert.ok(sc, "ts-pms-sc exists");
-    const income = sc.rules.filter((r) => r.field === "annual_income");
-    assert.equal(income.length, 1);
-    assert.equal(income[0].verification_status, "conflicting");
+    const rule = sc?.rules.find((r) => r.id === "ts-pms-sc-2");
+    assert.equal(rule?.verification_status, "verified");
+    assert.equal(rule?.value, 250000);
+    assert.ok((rule?.source_evidence ?? []).length > 0);
   });
 
   it("gives every scheme at least one rule", () => {
